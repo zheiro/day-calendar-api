@@ -1,0 +1,11 @@
+node_modules
+app
+logs
+uploads
+temp
+**/*.log
+.node-xmlhttprequest-*
+.env
+test
+eslint-report.html
+package-lock.json
