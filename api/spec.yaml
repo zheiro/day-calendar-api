@@ -1,0 +1,204 @@
+swagger: '2.0'
+
+# API information
+basePath: /api
+info:
+  title: 'My Day Calendar'
+  version: '0.0.1'
+  description: 'Simple One Day Scheduler Application'
+produces:
+  - application/json
+consumes:
+  - application/json
+
+
+# Services
+tags:
+  - name: 'auth'
+    description: 'Simple Authentication Feature'
+  - name: 'calendar'
+    description: 'Calendar Schedule Functions'
+    
+
+# Security
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+
+
+# Endpoints
+paths:
+  /auth/login:
+    post:
+      summary: 'Login'
+      description: 'Login using email and password'
+      tags: [auth]
+      parameters:
+        - in: body
+          name: credentials
+          description: 'provided user credentials'
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                example: "kabesino@gmail.com"
+              password:
+                type: string
+                example: "password" 
+      responses:
+        200:
+          description: 'Login Successfull'
+          schema:
+            $ref: '#/definitions/LoginSuccessResponse'
+      x-swagger-router-controller: AuthController
+      operationId: login
+
+  /auth/register:
+    post:
+      summary: 'Registration'
+      description: 'Register using email and password'
+      tags: [auth]
+      parameters:
+        - in: body
+          name: credentials
+          description: 'provided user credentials'
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                example: "kabesino@gmail.com"
+              password:
+                type: string
+                example: "password" 
+      responses:
+        200:
+          description: 'Registration Successfull'
+          schema:
+            $ref: '#/definitions/PlainSuccessResponse'
+      x-swagger-router-controller: AuthController
+      operationId: register
+
+  /calendar/{userId}:
+    get:
+      summary: 'Get user schedule'
+      description: 'Get user activities via user id'
+      tags: [calendar]
+      parameters:
+        - in: path
+          name: userId
+          description: 'userId to query'
+          type: integer
+          required: true
+      responses:
+        200:
+          description: 'schedule is returned in json format'
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ActivityDetails'
+      x-swagger-router-controller: CalendarController
+      operationId: getSchedule
+
+  /calendar/add/{userId}:
+    post:
+      summary: 'Add activity'
+      description: 'Add activity using details as provided'
+      tags: [calendar]
+      parameters:
+        - in: path
+          name: userId
+          description: 'userId to identify activity owner'
+          type: integer
+          required: true
+        - in: body
+          name: activity
+          description: 'provided activity details'
+          schema:
+            type: object
+            properties:
+              start:
+                type: integer
+                example: 270
+              duration:
+                type: integer
+                example: 80
+              title:
+                type: string
+                example: 'Doing Something New'    
+      responses:
+        200:
+          description: 'Add Activity Request Successful'
+          schema:
+            $ref: '#/definitions/PlainSuccessResponse'
+      x-swagger-router-controller: CalendarController
+      operationId: addActivity
+
+  /calendar/edit/{calendarId}:
+    post:
+      summary: 'Edit activity'
+      description: 'Update activity using new details as provided'
+      tags: [calendar]
+      parameters:
+        - in: path
+          name: calendarId
+          description: 'calendarId to identify activity'
+          type: integer
+          required: true
+        - in: body
+          name: activity
+          description: 'provided activity details'
+          schema:
+            type: object
+            properties:
+              start:
+                type: integer
+                example: 60
+              duration:
+                type: integer
+                example: 45
+              title:
+                type: string
+                example: 'Doing Something Different'    
+      responses:
+        200:
+          description: 'Edit Activity Request Successful'
+          schema:
+            $ref: '#/definitions/PlainSuccessResponse'
+      x-swagger-router-controller: CalendarController
+      operationId: editActivity
+
+# Request and response definitions
+definitions:
+  ActivityDetails:
+    type: object
+    properties:
+      start:
+        type: integer
+        example: '0'
+      duration:
+        type: integer
+        example: '60'
+      title: 
+        type: string
+        example: 'Doing Something'
+  
+  PlainSuccessResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+        example: true
+  
+  LoginSuccessResponse:
+    type: object
+    properties:
+      success:
+        type: boolean
+        example: true
+      userId:
+        type: integer
+        example: 1

@@ -1,0 +1,36 @@
+{
+	"parserOptions": {
+		"ecmaVersion": 7,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"modules": true
+		}
+	},
+	"parser": "babel-eslint",
+	"rules": {
+		"no-console": "warn",
+		"no-empty": "warn",
+		"semi": "warn",
+		"no-unreachable": "warn",
+		"curly": "warn",
+		"indent": [
+			"warn",
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"object-curly-spacing": [
+			"warn",
+			"always"
+		],
+		"no-var": "warn",
+		"no-duplicate-imports": "warn",
+		"no-unused-vars": "warn",
+		"no-cond-assign": "warn",
+		"eqeqeq": "warn"
+	},
+	"env": {
+		"node": true
+	}
+}
