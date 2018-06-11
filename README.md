@@ -10,3 +10,5 @@ Backend component for day-calendar-client
 4. npm run prep
 
 5. npm run start-dev
+
+swagger docs can be accessed at localhost:5050/docs
