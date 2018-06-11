@@ -5,6 +5,8 @@ Backend component for day-calendar-client
 
 2. edit database credentials that can be found at \day-calendar-api\src\models\index.js
 
-3. npm run prep
+3. create schema named "day_calendar"
 
-4. npm run start-dev
+4. npm run prep
+
+5. npm run start-dev
